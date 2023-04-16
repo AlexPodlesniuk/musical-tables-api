@@ -10,7 +10,7 @@ services:
       - mongodb_data_container:/data/db
 
   api:
-    build: .
+    build: ./services/legacy-api
     container_name: api
     environment:
       - MONGO_HOST=mongodb

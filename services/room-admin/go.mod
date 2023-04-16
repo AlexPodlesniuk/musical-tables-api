@@ -1,3 +1,2 @@
 module musical-tables-api/services/room-admin
-
-go 1.19
+go 1.20

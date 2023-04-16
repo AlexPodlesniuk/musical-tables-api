@@ -1,3 +1,3 @@
 module musical-tables
 
-go 1.19
+go 1.20
