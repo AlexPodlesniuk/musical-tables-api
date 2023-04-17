@@ -1,5 +1,9 @@
 package main
 
+import "musical-tables-api/services/room-admin/internal/api"
+
 func main() {
-	// start app with its config here
+	server := api.NewServer()
+	server.ConfigureEndpoints()
+	server.Start()
 }
