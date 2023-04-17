@@ -1,11 +1,12 @@
 package api
 
 import (
+	application_configurations "musical-tables-api/services/room-admin/internal/application/configurations"
 	features "musical-tables-api/services/room-admin/internal/application/features/creating_room"
-	"musical-tables-api/services/room-admin/internal/persistence"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/mehdihadeli/go-mediatr"
 )
 
 type echoHttpServer struct {
@@ -17,6 +18,7 @@ func NewServer() *echoHttpServer {
 }
 
 func (server *echoHttpServer) ConfigureEndpoints() {
+	application_configurations.ConfigMediatr()
 	server.echo.POST("/api/v1/rooms", handleCreateRoom)
 }
 
@@ -33,8 +35,7 @@ func handleCreateRoom(c echo.Context) error {
 	}
 
 	command := features.NewCreateRoom(request.Name)
-	handler := features.NewCreateRoomHandler(persistence.NewInMemoryRoomRepository())
-	result, err := handler.Handle(ctx, command)
+	result, err := mediatr.Send[*features.CreateRoom, *features.CreateRoomResponseDto](ctx, command)
 
 	if err != nil {
 		return err
