@@ -14,7 +14,7 @@ func (r *RequestValidationBehaviour) Handle(ctx context.Context, request interfa
 
 	v := validator.New()
 
-	err := v.Struct(request)
+	err := v.StructCtx(ctx, request)
 	if err != nil {
 		return nil, err
 	}
