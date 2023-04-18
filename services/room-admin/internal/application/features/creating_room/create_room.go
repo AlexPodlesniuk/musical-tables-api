@@ -1,7 +1,7 @@
 package features
 
 type CreateRoom struct {
-	Name string
+	Name string `validate:"required"`
 }
 
 func NewCreateRoom(name string) *CreateRoom {

@@ -1,4 +1,4 @@
-package behaviours
+package logging_behaviour
 
 import (
 	"context"

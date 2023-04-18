@@ -1,7 +1,8 @@
 package application_configurations
 
 import (
-	"musical-tables-api/services/room-admin/internal/application/behaviours"
+	logging_behaviour "musical-tables-api/services/room-admin/internal/application/behaviours/logging"
+	validation_behaviour "musical-tables-api/services/room-admin/internal/application/behaviours/validation"
 	features "musical-tables-api/services/room-admin/internal/application/features/creating_room"
 	"musical-tables-api/services/room-admin/internal/persistence"
 
@@ -14,7 +15,12 @@ func ConfigMediatr() error {
 		return err
 	}
 
-	err = mediatr.RegisterRequestPipelineBehaviors(&behaviours.RequestLoggerBehaviour{})
+	err = mediatr.RegisterRequestPipelineBehaviors(&logging_behaviour.RequestLoggerBehaviour{})
+	if err != nil {
+		return err
+	}
+
+	err = mediatr.RegisterRequestPipelineBehaviors(&validation_behaviour.RequestValidationBehaviour{})
 	if err != nil {
 		return err
 	}
