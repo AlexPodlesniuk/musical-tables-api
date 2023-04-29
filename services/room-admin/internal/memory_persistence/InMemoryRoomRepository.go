@@ -1,4 +1,4 @@
-package persistence
+package memory_persistence
 
 import (
 	"musical-tables-api/services/room-admin/internal/domain"

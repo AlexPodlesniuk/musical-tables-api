@@ -1,6 +1,8 @@
 package domain
 
+import "context"
+
 type RoomRepository interface {
-	GetRoomById(id string) (*Room, error)
-	SaveRoom(room *Room) error
+	GetRoomByID(ctx context.Context, id string) (*Room, error)
+	SaveRoom(ctx context.Context, room *Room) error
 }

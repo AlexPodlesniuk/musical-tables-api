@@ -19,7 +19,7 @@ func (handler *CreateRoomHandler) Handle(ctx context.Context, command *CreateRoo
 	id := uuid.New().String()
 	room := domain.NewRoom(id, command.Name)
 
-	err := handler.repository.SaveRoom(room)
+	err := handler.repository.SaveRoom(ctx, room)
 	response := &CreateRoomResponseDto{ID: id, Name: command.Name}
 	return response, err
 }

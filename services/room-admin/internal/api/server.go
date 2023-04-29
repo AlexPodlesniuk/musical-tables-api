@@ -5,6 +5,7 @@ import (
 	"fmt"
 	application_configurations "musical-tables-api/services/room-admin/internal/application/configurations"
 	features "musical-tables-api/services/room-admin/internal/application/features/creating_room"
+	"musical-tables-api/services/room-admin/internal/mongo_persistence"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -21,7 +22,13 @@ func NewServer() *echoHttpServer {
 }
 
 func (server *echoHttpServer) ConfigureEndpoints() {
-	application_configurations.ConfigMediatr()
+	repo, err := mongo_persistence.NewMongoDbRepository()
+
+	if err != nil {
+		panic(err)
+	}
+
+	application_configurations.ConfigMediatr(repo)
 	server.echo.POST("/api/v1/rooms", handleCreateRoom)
 }
 

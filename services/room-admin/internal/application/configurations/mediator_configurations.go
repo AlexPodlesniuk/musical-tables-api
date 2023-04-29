@@ -4,13 +4,13 @@ import (
 	logging_behaviour "musical-tables-api/services/room-admin/internal/application/behaviours/logging"
 	validation_behaviour "musical-tables-api/services/room-admin/internal/application/behaviours/validation"
 	features "musical-tables-api/services/room-admin/internal/application/features/creating_room"
-	"musical-tables-api/services/room-admin/internal/persistence"
+	"musical-tables-api/services/room-admin/internal/domain"
 
 	"github.com/mehdihadeli/go-mediatr"
 )
 
-func ConfigMediatr() error {
-	err := mediatr.RegisterRequestHandler[*features.CreateRoom, *features.CreateRoomResponseDto](features.NewCreateRoomHandler(persistence.NewInMemoryRoomRepository()))
+func ConfigMediatr(repository domain.RoomRepository) error {
+	err := mediatr.RegisterRequestHandler[*features.CreateRoom, *features.CreateRoomResponseDto](features.NewCreateRoomHandler(repository))
 	if err != nil {
 		return err
 	}
